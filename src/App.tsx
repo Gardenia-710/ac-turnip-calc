@@ -1,34 +1,72 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [buyPrice, setBuyPrice] = useState<number>(0)
+  const [buyQuantity, setBuyQuantity] = useState<number>(0)
+  const [sellPrice, setSellPrice] = useState<number>(0)
+  const [sellQuantity, setSellQuantity] = useState<number>(0)
+
+  // 購入総額と売却総額、利益を計算
+  const totalBuyAmount = buyPrice * buyQuantity
+  const totalSellAmount = sellPrice * sellQuantity
+  const profit = totalSellAmount - totalBuyAmount
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main className="container mx-auto max-w-screen-md border p-4">
+      <h1 className="text-3xl font-bold text-center mb-6">あつまれどうぶつの森 カブ収益計算</h1>
+
+      <div className="mb-6">
+        <h2 className="text-xl font-bold mb-3">購入時に入力</h2>
+        <h3 className="mb-2">購入時のカブ価と購入数</h3>
+        <div className="flex gap-4 mb-2">
+          <input
+            type="number"
+            value={buyPrice}
+            onChange={(e) => setBuyPrice(Number(e.target.value))}
+            placeholder="カブ価"
+            className="border p-2"
+          />
+          <input
+            type="number"
+            value={buyQuantity}
+            onChange={(e) => setBuyQuantity(Number(e.target.value))}
+            placeholder="購入数"
+            className="border p-2"
+          />
+        </div>
+        <p>購入総額: {totalBuyAmount.toLocaleString()}ベル</p>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+
+      <div className="mb-6">
+        <h2 className="text-xl font-bold mb-3">売却時に入力</h2>
+        <h3 className="mb-2">売却時のカブ価と売却数</h3>
+        <div className="flex gap-4 mb-2">
+          <input
+            type="number"
+            value={sellPrice}
+            onChange={(e) => setSellPrice(Number(e.target.value))}
+            placeholder="カブ価"
+            className="border p-2"
+          />
+          <input
+            type="number"
+            value={sellQuantity}
+            onChange={(e) => setSellQuantity(Number(e.target.value))}
+            placeholder="売却数"
+            className="border p-2"
+          />
+        </div>
+        <p>売却総額: {totalSellAmount.toLocaleString()}ベル</p>
+      </div>
+
+      <div>
+        <h3 className="text-xl font-bold mb-2">売却益</h3>
+        <p className={`text-lg ${profit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+          {profit.toLocaleString()}ベル
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    </main>
     </>
   )
 }
-
-export default App
