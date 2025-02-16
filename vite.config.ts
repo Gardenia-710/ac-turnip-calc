@@ -5,5 +5,6 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/ac-turnip-calc/',
+  // NOTE: カスタムドメインで運用しているのでbaseの指定は必要ない
+  // base: '/ac-turnip-calc/',
 })
